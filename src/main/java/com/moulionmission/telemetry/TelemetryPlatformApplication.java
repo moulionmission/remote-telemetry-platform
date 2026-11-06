@@ -12,3 +12,4 @@ public class TelemetryPlatformApplication {
         SpringApplication.run(TelemetryPlatformApplication.class, args);
     }
 }
+

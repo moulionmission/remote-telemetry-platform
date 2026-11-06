@@ -71,3 +71,4 @@ public class TelemetryConsumerService {
         redisTemplate.opsForValue().set(cacheKey, event, Duration.ofMinutes(30));
     }
 }
+

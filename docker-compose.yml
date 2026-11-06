@@ -96,3 +96,4 @@ services:
 networks:
   telemetry-net:
     driver: bridge
+

@@ -42,3 +42,4 @@ public class TelemetryIngestionService {
         return kafkaTemplate.send(primaryTopic, partitionKey, dto);
     }
 }
+

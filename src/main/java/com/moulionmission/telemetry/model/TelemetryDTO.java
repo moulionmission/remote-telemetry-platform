@@ -21,3 +21,4 @@ public class TelemetryDTO {
     private Instant timestamp;
     private String idempotencyKey;
 }
+

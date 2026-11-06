@@ -12,3 +12,4 @@ public interface TelemetryRepository extends JpaRepository<TelemetryEvent, Strin
     List<TelemetryEvent> findByDeviceIdOrderByTimestampDesc(String deviceId);
     Optional<TelemetryEvent> findTopByDeviceIdOrderByTimestampDesc(String deviceId);
 }
+

@@ -31,3 +31,4 @@ public class TelemetryEvent implements Serializable {
     private Instant timestamp;
     private String status;
 }
+

@@ -51,3 +51,4 @@ class TelemetryPipelineTests {
         verify(kafkaTemplate).send(any(), eq("device-cluster-alpha-001"), eq(dto));
     }
 }
+
