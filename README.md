@@ -1,4 +1,4 @@
-# Remote Telemetry & Event Ingestion Platform 📡
+# Remote Telemetry & Event Ingestion Platform 
 
 [![Build & Test CI](https://github.com/moulionmission/remote-telemetry-platform/actions/workflows/ci.yml/badge.svg)](https://github.com/moulionmission/remote-telemetry-platform/actions)
 [![Java](https://img.shields.io/badge/Java-17-ED8B00?style=flat-square&logo=openjdk&logoColor=white)](https://openjdk.org/)
