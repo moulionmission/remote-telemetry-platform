@@ -21,41 +21,41 @@ flowchart TD
         D2["Sensor Fleet Beta"]
     end
 
-    subgraph Ingest ["Ingestion Layer (Spring Boot API)"]
+    subgraph Ingest ["Ingestion Layer - Spring Boot API"]
         API["Ingestion REST API /batch"]
-        Router["Partition-Aware Key Router (hash(deviceId))"]
+        Router["Partition-Aware Key Router"]
     end
 
-    subgraph KafkaCluster ["3-Broker Kafka Cluster (6 Partitions, RF=3)"]
-        B1["Kafka Broker 1 (:9092)"]
-        B2["Kafka Broker 2 (:9093)"]
-        B3["Kafka Broker 3 (:9094)"]
+    subgraph KafkaCluster ["3-Broker Kafka Cluster - 6 Partitions"]
+        B1["Kafka Broker 1"]
+        B2["Kafka Broker 2"]
+        B3["Kafka Broker 3"]
     end
 
-    subgraph ConsumerLayer ["Concurrent Consumer Engine (ThreadPool 16-64)"]
-        Workers["Thread-Pooled Consumers"]
-        DLQ["Dead-Letter Queue (DLQ Topic)"]
+    subgraph ConsumerLayer ["Concurrent Consumer Engine"]
+        Workers["Thread-Pooled Consumers 16-64"]
+        DLQ["Dead-Letter Queue Topic"]
     end
 
     subgraph Storage ["Hybrid Storage & Acceleration Layer"]
-        Redis[("Redis Caching Layer (TTL 15m)")]
-        Postgres[("PostgreSQL Persistent Store")]
+        Redis[("Redis Caching Layer")]
+        Postgres[("PostgreSQL Store")]
     end
 
     D1 --> API
     D2 --> API
     API --> Router
-    Router -->|Idempotent Acks=All| B1
-    Router -->|Idempotent Acks=All| B2
-    Router -->|Idempotent Acks=All| B3
+    Router -->|"Idempotent Acks=All"| B1
+    Router -->|"Idempotent Acks=All"| B2
+    Router -->|"Idempotent Acks=All"| B3
     B1 --> Workers
     B2 --> Workers
     B3 --> Workers
-    Workers -->|Poison Pill / Retries Exhausted| DLQ
-    Workers -->|Atomic Deduplication SETNX| Redis
-    Workers -->|Write Telemetry Event| Postgres
-    Client["Analytics & Monitoring Client"] -->|Query Cached Device Telemetry| Redis
-    Redis -.->|Cache Miss (150ms)| Postgres
+    Workers -->|"Poison Pill Redirect"| DLQ
+    Workers -->|"Deduplication SETNX"| Redis
+    Workers -->|"Write Telemetry Event"| Postgres
+    Client["Analytics & Monitoring Client"] -->|"Query Cached Telemetry"| Redis
+    Redis -.->|"Cache Miss Fallback"| Postgres
 ```
 
 ---
